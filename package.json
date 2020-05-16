@@ -14,7 +14,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "sass --watch src/assets/scss:src/assets/css",
+    "cc": "concurrently 'npm:start' 'npm:sass'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +32,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "matter-js": "^0.14.2",
+    "react-cookie": "^4.0.3",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools": "^3.5.0",
+    "sass": "^1.26.5"
   }
 }
