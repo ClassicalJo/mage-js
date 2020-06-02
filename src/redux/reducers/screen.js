@@ -3,7 +3,7 @@ let height = window.innerHeight > window.innerWidth * 9 / 16 ? window.innerWidth
 let width = window.innerHeight > window.innerWidth * 9 / 16 ? window.innerWidth : window.innerHeight * 16 / 9
 let offset = (window.innerWidth - width) / 2
 
-let viewBox = {
+export let viewBox = {
     width: 2000,
     height: 1125,
 }
@@ -16,6 +16,7 @@ let initialState = {
         height: height,
         width: width,
         offset: offset * viewBox.width / width,
+        windowOffset: (window.innerWidth - width) / -2
     }
 }
 

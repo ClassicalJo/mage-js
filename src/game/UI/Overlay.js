@@ -11,6 +11,7 @@ let Overlay = () => {
             y={viewBox.height / -2}
             fill="black"
             opacity="0.2"
+            pointerEvents="none"
         />
     )
 }

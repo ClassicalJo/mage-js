@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-
+import Player from "./definitions/playerDef"
 let Definitions = props => {
     let menu = {
         height: props.viewBox.height,
@@ -8,46 +8,62 @@ let Definitions = props => {
         x: (props.viewBox.height * 9 / 16) / -2,
         y: props.viewBox.height / -2
     }
+    let spellbook = {
+        width: props.viewBox.width * 4 / 5,
+        height: props.viewBox.height * 1 / 4,
+        x: (props.viewBox.width * 4 / 5) / -2,
+        y: (props.viewBox.height * 1 / 4) / -2,
+    }
 
     return (
         <defs>
-            <filter
-                id="menu-background-filter"
-                x="0%"
-                y="0%"
-                width="100%"
-                height="100%">
-                <feTurbulence
-                    type="fractalNoise"
-                    baseFrequency="0.1 0.5"
-                    numOctaves="1"
-                    seed="1"
-                />
-                <feColorMatrix type="saturate" values="0" />
-            </filter>
+            <style type="text/css">
+                {`@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap")`}
+            </style>
 
-            <mask id="menu-background-mask"
-                height={menu.height}
-                width={menu.height}
-                x={menu.x}
-                y={menu.y}
-            >
+
+            <radialGradient id="background-radial" cx="50%" cy="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor="white" stopOpacity="1"></stop>
+                <stop offset="100%" stopColor="black" stopOpacity="1" />
+            </radialGradient>
+            <filter id="spellbook-filter">
+                <feTurbulence
+                    {...spellbook}
+                    baseFrequency="0.1"
+                    numOctaves="5" />
+            </filter>
+            <filter id="shadow-blur">
+                <feGaussianBlur stdDeviation="4" />
+            </filter>
+            <mask {...spellbook} id="spellbook-mask">
                 <rect
-                    height={menu.height}
-                    width={menu.width}
-                    x={menu.x}
-                    y={menu.y}
+                    {...spellbook}
                     fill="black"
                 />
                 <rect
-                    height={menu.height}
-                    width={menu.width}
-                    x={menu.x}
-                    y={menu.y}
+                    {...spellbook}
                     fill="white"
                     rx="20"
                 />
             </mask>
+            <filter id="menu-filter">
+                <feTurbulence
+                    {...menu}
+                    baseFrequency="0.1"
+                    numOctaves="5" />
+            </filter>
+            <mask id="menu-background-mask" {...menu}>
+                <rect
+                    {...menu}
+                    fill="black"
+                />
+                <rect
+                    {...menu}
+                    fill="white"
+                    rx="20"
+                />
+            </mask>
+            <Player />
         </defs>
     )
 }

@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Tile from "./Tile"
 
 let Grid = props => {
+    useEffect(() => {
+        document.querySelectorAll(".board-tiles-fall").forEach(key => key.beginElement())
+    }, [])
     return (
         props.board.map((key, index) => (
             <Tile
                 key={`tile${index}`}
                 id={`square${index}`}
+                tile={index}
                 width={key.width}
                 height={key.height}
-                fill={key.y % 128.125 === 0 ? "black" : "orange"}
+                fill="green"
+                opacity="0.5"
                 x={key.x}
                 y={key.y}
             />)))

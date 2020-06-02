@@ -1,7 +1,7 @@
 import { UI_SHOW } from "../actionTypes"
 
 const initialState = {
-    show: false
+    show: false,
 }
 
 export default function (state = initialState, action) {

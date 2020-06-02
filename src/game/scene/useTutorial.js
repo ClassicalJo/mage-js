@@ -1,15 +1,32 @@
-import { Bodies, World, Body } from 'matter-js'
-import { useSelector } from 'react-redux'
+import { Body } from 'matter-js'
+import { useSelector, useDispatch } from 'react-redux'
+import { setPlayerPosition, setPlayerAngle } from "../../redux/actions"
+import { useBlockTiles } from "../hooks/useBlockTiles"
+import Player from '../bodies/player'
+import Enemy from '../bodies/enemies'
+import { useEndTurn } from '../hooks/useEndTurn'
 
 export let useTutorial = world => {
     let board = useSelector(state => state.world.board)
-    let start = () => {
+    let player = useSelector(state => state.player)
+    let dispatch = useDispatch()
+    let tiles = useBlockTiles()
+    let battle = useEndTurn()
+    function start() {
+        let playerStart = { ...board[63] }
+        let enemyStart = { ...board[0] }
+        let enemy2Start = { ...board[15] }
+        let newPlayer = new Player(playerStart, player.maxHP, player.speed, world)
 
-        let player = Bodies.circle(board[0].x, board[0].y, 30, { label: "Player" })
-        let enemy = Bodies.circle(board[63].x, board[63].y, 30, { label: "Enemy" })
-        World.add(world, [player, enemy])
+        Body.setAngle(newPlayer.body, 270)
+        dispatch(setPlayerAngle(newPlayer.body.angle))
+        dispatch(setPlayerPosition(newPlayer.body.position))
+        let enemy = new Enemy.Elf(enemyStart, world)
+        Body.setAngle(enemy.body, 90)
+        let enemy2 = new Enemy.Warg(enemy2Start, world);
+        [newPlayer, enemy, enemy2].forEach(key => key.add())
+        tiles.block(playerStart, enemyStart, enemy2Start)
+        setTimeout(battle, 0)
     }
     return start
 }
-
-

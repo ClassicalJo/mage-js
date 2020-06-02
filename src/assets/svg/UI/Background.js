@@ -1,19 +1,28 @@
 import React from 'react'
 
 let Background = props => {
+
     return (
-        <React.Fragment>
+        <>
             <rect
-                height={props.height}
-                width={props.width}
-                x={props.x}
-                y={props.y}
+                {...props}
+                fill="#1101AB"
+                mask="url(#menu-background-mask)" />
+            <rect
+                {...props}
                 fill="#1101AB"
                 stroke="white"
                 strokeWidth="30"
-                mask="url(#menu-background-mask)">
-            </rect>
-        </React.Fragment>
+                filter="url(#menu-filter)" 
+                mask="url(#menu-background-mask)" />
+
+            <rect
+                {...props}
+                fill="transparent"
+                stroke="white"
+                strokeWidth="30"
+                mask="url(#menu-background-mask)" />
+        </>
     )
 
 }

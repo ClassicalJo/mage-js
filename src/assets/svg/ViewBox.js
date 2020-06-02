@@ -10,11 +10,19 @@ let ViewBox = props => {
             preserveAspectRatio="xMidYMid meet">
             <Definitions />
             <rect
-                fill="violet"
+                fill="black"
                 width="10000"
                 height="10000"
                 x="-5000"
                 y="-5000" />
+            <rect
+                fill="url(#background-radial)"
+                width={props.width}
+                height={props.height}
+                x={props.width / -2}
+                y={props.height / -2}>
+
+            </rect>
             <rect
                 fill='transparent'
                 stroke="white"
